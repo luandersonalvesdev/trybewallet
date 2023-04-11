@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Form from '../components/Form';
+import FormLogin from '../components/FormLogin';
 
 class Login extends React.Component {
   render() {
     const { history } = this.props;
-    return <Form history={ history } />;
+    return <FormLogin history={ history } />;
   }
 }
 

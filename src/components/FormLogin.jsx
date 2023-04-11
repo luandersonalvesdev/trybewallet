@@ -5,7 +5,7 @@ import { loginAction } from '../redux/actions';
 
 const SIX = 6;
 
-class Form extends Component {
+class FormLogin extends Component {
   constructor(props) {
     super(props);
 
@@ -68,11 +68,11 @@ const mapDispatchToProps = (dispatch) => ({
   login: (emailInput) => dispatch(loginAction(emailInput)),
 });
 
-Form.propTypes = {
+FormLogin.propTypes = {
   login: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(null, mapDispatchToProps)(FormLogin);
