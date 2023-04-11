@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 const SIX = 6;
 
-export default class Form extends Component {
+class Form extends Component {
   state = {
     emailInput: '',
     passwordInput: '',
@@ -44,3 +45,5 @@ export default class Form extends Component {
     );
   }
 }
+
+export default connect()(Form);
