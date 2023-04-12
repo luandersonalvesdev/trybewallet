@@ -49,7 +49,7 @@ class Login extends Component {
           <input
             onChange={ this.handleChange }
             name="passwordInput"
-            type="password"
+            type="text"
             data-testid="password-input"
           />
         </label>
@@ -72,7 +72,11 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-  }).isRequired,
+  }),
+};
+
+Login.defaultProps = {
+  history: { push: () => {} },
 };
 
 export default connect(null, mapDispatchToProps)(Login);
