@@ -5,14 +5,8 @@ import PropTypes from 'prop-types';
 class Header extends Component {
   render() {
     const { userEmail, totalExpense } = this.props;
-    const total = totalExpense.reduce((acc, currency) => {
-      const keys = Object.keys(currency.exchangeRates[0]);
-      keys.forEach((curr) => {
-        if (curr === currency.currency) {
-          const cotation = Number(currency.exchangeRates[0][curr].ask);
-          acc += (currency.value * cotation);
-        }
-      });
+    const total = totalExpense.reduce((acc, expense) => {
+      acc += (expense.value) * expense.exchangeRates[expense.currency].ask;
       return acc;
     }, 0).toFixed(2);
     return (

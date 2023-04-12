@@ -17,26 +17,6 @@ export const addCurrencies = (data) => ({
   payload: data,
 });
 
-export const fetchCurrencySuccess = (data) => ({
-  type: FETCH_CURRENCY_SUCCESS,
-  payload: data,
-});
-
-export const fetchCurrencyLoading = () => ({
-  type: FETCH_CURRENCY_LOADING,
-});
-
-export const fetchCurrencyFinishLoading = () => ({
-  type: FETCH_CURRENCY_FINISH_LOADING,
-});
-
-export const fetchCurrency = () => async (dispatch) => {
-  const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const data = await response.json();
-  delete data.USDT;
-  dispatch(fetchCurrencySuccess(data));
-};
-
 export const addExpense = (data) => ({
   type: ADD_EXPENSE,
   payload: data,
