@@ -3,6 +3,7 @@ import {
   FETCH_CURRENCY_SUCCESS,
   ADD_EXPENSE,
   ADD_CURRENCIES,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -30,6 +31,12 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currencies: action.payload,
+    };
+  case DELETE_EXPENSE:
+    state.expenses.splice(action.payload, 1);
+    return {
+      ...state,
+      expenses: [...state.expenses],
     };
   default:
     return state;

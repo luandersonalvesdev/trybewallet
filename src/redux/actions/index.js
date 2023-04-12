@@ -6,6 +6,7 @@ export const FETCH_CURRENCY_LOADING = 'FETCH_CURRENCY_LOADING';
 export const FETCH_CURRENCY_FINISH_LOADING = 'FETCH_CURRENCY_FINISH_LOADING';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const ADD_CURRENCIES = 'ADD_CURRENCIES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const loginAction = (data) => ({
   type: LOGIN_ACTION,
@@ -20,4 +21,9 @@ export const addCurrencies = (data) => ({
 export const addExpense = (data) => ({
   type: ADD_EXPENSE,
   payload: data,
+});
+
+export const deleteExpenseAction = (index) => ({
+  type: DELETE_EXPENSE,
+  payload: index,
 });
