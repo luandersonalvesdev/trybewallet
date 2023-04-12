@@ -7,6 +7,8 @@ export const FETCH_CURRENCY_FINISH_LOADING = 'FETCH_CURRENCY_FINISH_LOADING';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const ADD_CURRENCIES = 'ADD_CURRENCIES';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const SAVE_EDIT_EXPENSE = 'SAVE_EDIT_EXPENSE';
 
 export const loginAction = (data) => ({
   type: LOGIN_ACTION,
@@ -27,3 +29,24 @@ export const deleteExpenseAction = (index) => ({
   type: DELETE_EXPENSE,
   payload: index,
 });
+
+export const editExpenseAction = (id) => ({
+  type: EDIT_EXPENSE,
+  payload: id,
+});
+
+export const saveEditExpenseAction = (data) => ({
+  type: SAVE_EDIT_EXPENSE,
+  payload: data,
+});
+
+export const saveEditExpenseThunk = (data, wallet) => (dispatch) => {
+  const newExpenses = wallet.expenses.map((expense) => {
+    if (expense.id === wallet.idToEdit) {
+      const { id, exchangeRates } = expense;
+      return { ...data, id, exchangeRates };
+    }
+    return expense;
+  });
+  dispatch(saveEditExpenseAction(newExpenses));
+};

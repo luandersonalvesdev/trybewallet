@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteExpenseAction } from '../redux/actions';
+import { deleteExpenseAction, editExpenseAction } from '../redux/actions';
 
 class Table extends Component {
   deleteExpense = (index) => {
@@ -9,8 +9,13 @@ class Table extends Component {
     dispatch(deleteExpenseAction(index));
   };
 
+  editExpense = (id) => {
+    const { dispatch } = this.props;
+    dispatch(editExpenseAction(id));
+  };
+
   render() {
-    const { allExpenses } = this.props;
+    const { allExpenses, wallet } = this.props;
     return (
       <table>
         <thead>
@@ -32,7 +37,6 @@ class Table extends Component {
               const {
                 description, tag, method, value, exchangeRates, currency, id,
               } = expense;
-              console.log('a');
               return (
                 <tr key={ id }>
                   <td>{description}</td>
@@ -44,6 +48,13 @@ class Table extends Component {
                   <td>{Number(value * exchangeRates[currency].ask).toFixed(2)}</td>
                   <td>Real</td>
                   <td>
+                    <button
+                      data-testid="edit-btn"
+                      onClick={ () => { this.editExpense(id); } }
+                    >
+                      Editar
+                    </button>
+
                     <button
                       data-testid="delete-btn"
                       onClick={ () => { this.deleteExpense(index); } }
@@ -64,6 +75,7 @@ class Table extends Component {
 
 const mapStateToProps = ({ wallet }) => ({
   allExpenses: wallet.expenses,
+  wallet,
 });
 
 Table.propTypes = {

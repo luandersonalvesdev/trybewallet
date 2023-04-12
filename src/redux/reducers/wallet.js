@@ -4,6 +4,8 @@ import {
   ADD_EXPENSE,
   ADD_CURRENCIES,
   DELETE_EXPENSE,
+  EDIT_EXPENSE,
+  SAVE_EDIT_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -37,6 +39,19 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses],
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      editor: true,
+      idToEdit: action.payload,
+    };
+  case SAVE_EDIT_EXPENSE:
+    console.log(action.payload);
+    return {
+      ...state,
+      editor: false,
+      expenses: [...action.payload],
     };
   default:
     return state;

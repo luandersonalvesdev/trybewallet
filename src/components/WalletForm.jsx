@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   addExpense,
   addCurrencies,
+  saveEditExpenseThunk,
 } from '../redux/actions';
 
 import fetchAPI from '../helpers/fetchAPI';
@@ -39,8 +40,13 @@ class WalletForm extends Component {
     this.setState(() => ({ value: '', description: '' }));
   };
 
+  saveEditExpenses = () => {
+    const { dispatch, wallet } = this.props;
+    dispatch(saveEditExpenseThunk({ ...this.state }, wallet));
+  };
+
   render() {
-    const { allCurrencies } = this.props;
+    const { allCurrencies, wallet: { editor } } = this.props;
     const { value, description, method, tag, currency } = this.state;
     return (
       <form onSubmit={ (e) => e.preventDefault() }>
@@ -120,7 +126,11 @@ class WalletForm extends Component {
           </select>
         </label>
 
-        <button onClick={ this.addExpenses }>Adicionar despesa</button>
+        <button
+          onClick={ editor ? this.saveEditExpenses : this.addExpenses }
+        >
+          {editor ? 'Editar despesa' : 'Adicionar despesa'}
+        </button>
       </form>
     );
   }
@@ -129,12 +139,16 @@ class WalletForm extends Component {
 const mapStateToProps = ({ wallet }) => ({
   allCurrencies: wallet.currencies,
   idExpenses: wallet.idExpenses,
+  wallet,
 });
 
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   allCurrencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   idExpenses: PropTypes.number.isRequired,
+  wallet: PropTypes.shape({
+    editor: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(WalletForm);
