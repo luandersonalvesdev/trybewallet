@@ -13,7 +13,7 @@ class WalletForm extends Component {
     value: 0,
     description: '',
     currency: 'USD',
-    method: 'Cartão de débito',
+    method: 'Dinheiro',
     tag: 'Alimentação',
   };
 
