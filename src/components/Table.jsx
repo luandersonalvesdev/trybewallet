@@ -15,7 +15,7 @@ class Table extends Component {
   };
 
   render() {
-    const { allExpenses, wallet } = this.props;
+    const { allExpenses } = this.props;
     return (
       <table>
         <thead>

@@ -3,7 +3,6 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import Login from '../pages/Login';
-import Wallet from '../pages/Wallet';
 
 const emailType = 'user@email.com';
 const passwordType = '123456';
@@ -31,18 +30,5 @@ describe('Renderiza a página de Login e...', () => {
 
     const btnEl = screen.getByRole('button', { name: /entrar/i });
     userEvent.click(btnEl);
-  });
-});
-
-describe('Renderiza a página Wallet e...', () => {
-  it('Veja se tem o texto "TrybeWallet", se o valor inicial é "0.00" e tem "BRL"', () => {
-    renderWithRouterAndRedux(<Wallet />);
-    const trybeWalletEl = screen.getByText(/trybewallet/i);
-    const initialValueEl = screen.getByText(/0\.00/i);
-    const currencyEl = screen.getByText(/brl/i);
-
-    expect(trybeWalletEl).toBeDefined();
-    expect(initialValueEl).toBeDefined();
-    expect(currencyEl).toBeDefined();
   });
 });

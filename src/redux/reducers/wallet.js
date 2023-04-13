@@ -47,7 +47,6 @@ const wallet = (state = INITIAL_STATE, action) => {
       idToEdit: action.payload,
     };
   case SAVE_EDIT_EXPENSE:
-    console.log(action.payload);
     return {
       ...state,
       editor: false,
