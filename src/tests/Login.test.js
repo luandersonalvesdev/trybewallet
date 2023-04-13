@@ -2,14 +2,14 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
-import Login from '../pages/Login';
+import App from '../App';
 
 const emailType = 'user@email.com';
 const passwordType = '123456';
 
 describe('Renderiza a página de Login e...', () => {
   it('Veja se tem 2 inputs e 1 botão, e o botão só está ativado após email e senha válidos.', () => {
-    renderWithRouterAndRedux(<Login />);
+    renderWithRouterAndRedux(<App />, { initialEntries: ['/'] });
     const allInputField = screen.getAllByRole('textbox');
     expect(allInputField).toHaveLength(2);
     const btnEl = screen.getByRole('button', { name: /entrar/i });
@@ -22,7 +22,7 @@ describe('Renderiza a página de Login e...', () => {
     expect(btnEl).not.toBeDisabled();
   });
   it('Pressione o botão de entrar e vá para rota "carteira"', () => {
-    renderWithRouterAndRedux(<Login />);
+    renderWithRouterAndRedux(<App />, { initialEntries: ['/'] });
     const allInputField = screen.getAllByRole('textbox');
 
     userEvent.type(allInputField[0], emailType);
