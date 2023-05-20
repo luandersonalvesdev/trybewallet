@@ -27,6 +27,7 @@
 - React
 - Redux
 - JavaScript
+- React Testing Library
 
 ## CONTATO
 
