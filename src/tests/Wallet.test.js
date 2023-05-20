@@ -81,13 +81,37 @@ describe('Renderiza a página Wallet e...', () => {
       json: jest.fn().mockResolvedValue(mockData),
     });
 
-    const { store } = renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'] });
+    renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'] });
 
     const optionEl = await screen.findByRole(('option'), { name: /btc/i });
     expect(optionEl).toBeDefined();
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
+  it('Ao adicionar um despesa o valor total é atualizado.', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockData),
+    });
 
-    console.log(store.getState());
+    renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'] });
+
+    const totalFieldEl = screen.getByTestId('total-field');
+    expect(totalFieldEl.innerHTML).toBe('0.00');
+
+    const inputValueEl = screen.getByRole('spinbutton', { name: /valor da despesa/i });
+    const btnAddExpenseEl = screen.getByRole('button', { name: /adicionar despesa/i });
+    const descriptionEl = screen.getByRole('textbox', { name: /descrição da despesa/i });
+
+    userEvent.type(inputValueEl, '10');
+    userEvent.type(descriptionEl, 'cueca');
+    userEvent.click(btnAddExpenseEl);
+
+    const tableDescriptionEl = await screen.findByRole('cell', { name: /cueca/i });
+    expect(tableDescriptionEl).toBeDefined();
+
+    const totalFieldEl2 = await screen.findByTestId('total-field');
+    expect(totalFieldEl2.innerHTML).toBe('47.53');
+    expect(global.fetch).toHaveBeenCalledTimes(2);
   });
 });
